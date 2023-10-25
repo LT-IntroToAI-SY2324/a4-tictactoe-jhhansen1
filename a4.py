@@ -27,11 +27,24 @@ class TTTBoard:
         return True
     def has_won(self, player)-> bool:
         x=0
-        if self.board[x]==player and self.board[x+1]==player and self.board[x+2]==player:
+        for x in range (9):
+            if x%3==0 and self.board[x]==player and self.board[x+1]==player and self.board[x+2]==player:
                 return True
-        elif self.board[x]==player and self.board[x+3]==player and self.board[x+6]==player:
+            elif self.board[x]==player and self.board[x+3]==player and self.board[x+6]==player:
                 return True
-        elif x==0 and self.board[x]==player and self.board[x+2] and 
+            elif x==0 and self.board[x]==player and self.board[x+4]==player and self.board[x+8]==player:
+                return True 
+            elif x==2 and self.board[x]==player and self.board[x+2]==player and self.board[x+4]==player:
+                return True
+        return False 
+    def game_over(self):
+        if self.has_won("x")==True or self.has_won("o")==True:
+            return True
+        for x in range (9):
+         if self.board[x]=="*":
+             return False
+        return True
+
         
         
                 

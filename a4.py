@@ -16,8 +16,7 @@ class TTTBoard:
     def __str__(self)->str:
         s=""
         for x in [0,3,6]:
-            s+=self.board[x+0]+" "+self.board[x+1]+" "+self.board(x+2)+"\n"
-
+            s+=self.board[x+0]+" "+self.board[x+1]+" "+self.board[x+2]+"\n"
         return s
     def make_move(self, player, pos) -> bool:
         if pos < 0 or pos > 8 or self.board[pos]!= "*":
@@ -30,7 +29,7 @@ class TTTBoard:
         for x in range (9):
             if x%3==0 and self.board[x]==player and self.board[x+1]==player and self.board[x+2]==player:
                 return True
-            elif self.board[x]==player and self.board[x+3]==player and self.board[x+6]==player:
+            elif x<3 and self.board[x]==player and self.board[x+3]==player and self.board[x+6]==player:
                 return True
             elif x==0 and self.board[x]==player and self.board[x+4]==player and self.board[x+8]==player:
                 return True 
@@ -38,17 +37,14 @@ class TTTBoard:
                 return True
         return False 
     def game_over(self):
-        if self.has_won("x")==True or self.has_won("o")==True:
+        if self.has_won("X")==True or self.has_won("O")==True:
             return True
         for x in range (9):
          if self.board[x]=="*":
              return False
         return True
-
-        
-        
-                
-
+    def clear(self):
+        self.board=['*'] * 9
 
 def play_tic_tac_toe() -> None:
     """Uses your class to play TicTacToe"""
@@ -113,7 +109,8 @@ if __name__ == "__main__":
     assert brd.game_over() == True
 
     brd.clear()
-
+    print (brd)
+    print (brd.game_over())
     assert brd.game_over() == False
 
     brd.make_move("O", 3)
